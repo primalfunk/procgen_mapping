@@ -5,9 +5,9 @@ from scipy.spatial import Voronoi
 import numpy as np
 from itertools import chain
 import pygame
-import math
+import cProfile
 
-class Map:
+class Grid:
     def __init__(self):
         self.height = random.randint(22, 25)
         self.width = random.randint(22, 25)
@@ -16,7 +16,15 @@ class Map:
         unique_regions = set(chain.from_iterable(self.grid))
         self.room_counts = {region: {'S': 0, 'D': 0, 'M': 0, 'Q': 0} for region in range(5)}
         self.regions = [None for _ in range(5)]
+        self.directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         self.connections = {}
+        self.generate_voronoi_grid()
+        self.make_uneven_edges()
+        self.fit_rooms()
+        self.mark_unique_edge_rooms()
+        self.make_connections()
+        self.print_map()
+        self.visualize_map()
 
     def make_uneven_edges(self):
         for row in range(len(self.grid)):
@@ -26,7 +34,6 @@ class Map:
                         self.grid[row][col] = -1
 
     def divide_grid(self):
-        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         total_cells = sum([row.count(0) for row in self.grid])
         region_sizes = [random.randint(total_cells // 10, total_cells // 6) for _ in range(5)]
         random.shuffle(region_sizes)
@@ -36,7 +43,7 @@ class Map:
         queue = deque([(start_row, start_col, region_index)])
         while queue and region_index < 5:
             row, col, region_index = queue.popleft()
-            for dr, dc in directions:
+            for dr, dc in self.directions:
                 new_row, new_col = row + dr, col + dc
                 if (0 < new_row < self.height - 1) and (0 < new_col < self.width - 1) and self.grid[new_row][new_col] == 0:
                     self.grid[new_row][new_col] = region_index + 1
@@ -217,21 +224,92 @@ class Map:
         self.connect_isolated_islands()
     
     def connect_cells(self, cell1, cell2):
-        row1, col1 = cell1
-        row2, col2 = cell2
-        key1 = f"{row1},{col1}"
-        key2 = f"{row2},{col2}"
-        if key1 not in self.connections:
-            self.connections[key1] = []
-        self.connections[key1].append(key2)
-        if key2 not in self.connections:
-            self.connections[key2] = []
-        self.connections[key2].append(key1)
+        if cell1 not in self.connections:
+            self.connections[cell1] = []
+        self.connections[cell1].append(cell2)
+        if cell2 not in self.connections:
+            self.connections[cell2] = []
+        self.connections[cell2].append(cell1)
 
     def is_connected(self, cell1, cell2):
-        key1 = f"{cell1[0]},{cell1[1]}"
-        key2 = f"{cell2[0]},{cell2[1]}"
-        return key2 in self.connections.get(key1, []) or key1 in self.connections.get(key2, [])
+        return cell2 in self.connections.get(cell1, []) or cell1 in self.connections.get(cell2, [])
+
+    def is_same_region(self, cell1, cell2):
+        row1, col1 = cell1
+        row2, col2 = cell2
+        return self.grid[row1][col1] == self.grid[row2][col2]
+
+    def connect_E_rooms(self):
+        for row in range(self.height):
+            for col in range(self.width):
+                if self.room_grid[row][col] == 'E':
+                    for d_row, d_col in self.directions:
+                        next_row, next_col = row + d_row, col + d_col
+                        if (0 <= next_row < self.height and 0 <= next_col < self.width
+                            and self.room_grid[next_row][next_col] == 'E'
+                            and not self.is_same_region((row, col), (next_row, next_col))):
+                            # Connect "E" rooms to each other
+                            self.connect_cells((row, col), (next_row, next_col))
+                            
+                            # Make up to 3 additional random connections within the region for both "E" rooms
+                            for _ in range(3):
+                                random.shuffle(self.directions)
+                                for dr, dc in self.directions:
+                                    r1, c1 = row + dr, col + dc
+                                    r2, c2 = next_row + dr, next_col + dc
+                                    if (0 <= r1 < self.height and 0 <= c1 < self.width
+                                        and self.is_same_region((row, col), (r1, c1))):
+                                        self.connect_cells((row, col), (r1, c1))
+                                    if (0 <= r2 < self.height and 0 <= c2 < self.width
+                                        and self.is_same_region((next_row, next_col), (r2, c2))):
+                                        self.connect_cells((next_row, next_col), (r2, c2))
+
+    def connect_S_rooms(self):
+        for row in range(self.height):
+            for col in range(self.width):
+                if self.room_grid[row][col] == 'S':
+                    random.shuffle(self.directions)  # Shuffle directions to add randomness
+                    connections_count = random.choices([2, 3, 4], weights=[0.2, 0.5, 0.3])[0]
+                    connected = 0
+                    for d_row, d_col in self.directions:
+                        next_row, next_col = row + d_row, col + d_col
+                        if (0 <= next_row < self.height and 0 <= next_col < self.width
+                            and self.is_same_region((row, col), (next_row, next_col))):
+                            self.connect_cells((row, col), (next_row, next_col))
+                            connected += 1
+                            if connected == connections_count:
+                                break
+
+    def connect_isolated_islands(self):
+        for row in range(self.height):
+            for col in range(self.width):
+                # Find a connected room to start BFS
+                start_cell = (row, col)
+                start_region = self.grid[row][col]
+                visited = set(start_cell)
+                queue = deque([start_cell])
+                while queue:
+                    current_cell = queue.popleft()
+                    for dr, dc in self.directions:
+                        next_row, next_col = current_cell[0] + dr, current_cell[1] + dc
+                        next_cell = (next_row, next_col)
+                        if (0 <= next_row < self.height and 0 <= next_col < self.width
+                            and next_cell not in visited
+                            and self.is_same_region(current_cell, next_cell)
+                            and self.is_connected(current_cell, next_cell)):
+                            visited.add(next_cell)
+                            queue.append(next_cell)
+                region_cells = {(r, c) for r in range(self.height) for c in range(self.width) if self.grid[r][c] == start_region}
+                isolated_cells = region_cells - visited
+                for cell in isolated_cells:
+                    for dr, dc in self.directions:
+                        next_row, next_col = cell[0] + dr, cell[1] + dc
+                        next_cell = (next_row, next_col)
+                        if (0 <= next_row < self.height and 0 <= next_col < self.width
+                            and self.grid[next_row][next_col] == start_region
+                            and next_cell in visited):
+                            self.connect_cells(cell, next_cell)
+                            break
 
     def visualize_map(self):
         base_colors = [(255, 255, 255), (0, 0, 255), (0, 255, 0), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
@@ -249,14 +327,7 @@ class Map:
                 color = base_color  # Default color
                 if row % 2 == 0 and col % 2 == 0: # Modify color based on room type
                     room_type = self.room_grid[original_row][original_col]
-                    print("Room Type:", room_type)  # Print the room type for debugging
-                    if room_type == 'S':
-                        color = tuple(max(c - 130, 0) for c in base_color)
-                    elif room_type == 'D':
-                        color = tuple(max(c - 90, 0) for c in base_color)
-                    elif room_type == 'M':
-                        color = tuple(max(c - 50, 0) for c in base_color)
-                    elif room_type == 'Q':
+                    if room_type in 'SDMQE':
                         color = base_color
                     pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
                     pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
@@ -269,14 +340,13 @@ class Map:
                         text_y = row * cell_size + 5
                         screen.blit(text_surface, (text_x, text_y))
                 elif row % 2 == 0 and col % 2 == 1 and self.is_connected((original_row, original_col), (original_row, original_col + 1)):
-                    color = base_color
+                    color = tuple(min(c + 50, 255) for c in base_color)
                     pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
                     pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
                 elif row % 2 == 1 and col % 2 == 0 and self.is_connected((original_row, original_col), (original_row + 1, original_col)):
-                    color = base_color
+                    color = tuple(min(c + 50, 255) for c in base_color)
                     pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
                     pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
-
         pygame.display.flip()
         running = True  # Keep the window open until it's manually closed
         while running:
@@ -285,95 +355,7 @@ class Map:
                     running = False
         pygame.quit()
 
-    def is_same_region(self, cell1, cell2):
-        row1, col1 = cell1
-        row2, col2 = cell2
-        return self.grid[row1][col1] == self.grid[row2][col2]
 
-    def connect_E_rooms(self):
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-        for row in range(self.height):
-            for col in range(self.width):
-                if self.room_grid[row][col] == 'E':
-                    for d_row, d_col in directions:
-                        next_row, next_col = row + d_row, col + d_col
-                        if (0 <= next_row < self.height and 0 <= next_col < self.width
-                            and self.room_grid[next_row][next_col] == 'E'
-                            and not self.is_same_region((row, col), (next_row, next_col))):
-                            # Connect "E" rooms to each other
-                            self.connect_cells((row, col), (next_row, next_col))
-                            
-                            # Make up to 3 additional random connections within the region for both "E" rooms
-                            for _ in range(3):
-                                random.shuffle(directions)
-                                for dr, dc in directions:
-                                    r1, c1 = row + dr, col + dc
-                                    r2, c2 = next_row + dr, next_col + dc
-                                    if (0 <= r1 < self.height and 0 <= c1 < self.width
-                                        and self.is_same_region((row, col), (r1, c1))):
-                                        self.connect_cells((row, col), (r1, c1))
-                                    if (0 <= r2 < self.height and 0 <= c2 < self.width
-                                        and self.is_same_region((next_row, next_col), (r2, c2))):
-                                        self.connect_cells((next_row, next_col), (r2, c2))
+cProfile.run("grid_obj = Grid()")
 
-    def connect_S_rooms(self):
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
-        for row in range(self.height):
-            for col in range(self.width):
-                if self.room_grid[row][col] == 'S':
-                    random.shuffle(directions)  # Shuffle directions to add randomness
-                    connections_count = random.choices([2, 3, 4], weights=[0.2, 0.5, 0.3])[0]
-                    connected = 0
-                    for d_row, d_col in directions:
-                        next_row, next_col = row + d_row, col + d_col
-                        if (0 <= next_row < self.height and 0 <= next_col < self.width
-                            and self.is_same_region((row, col), (next_row, next_col))):
-                            self.connect_cells((row, col), (next_row, next_col))
-                            connected += 1
-                            if connected == connections_count:
-                                break
-
-    def connect_isolated_islands(self):
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]  # Possible directions to move
-        for row in range(self.height):
-            for col in range(self.width):
-                # Find a connected room to start BFS
-                start_cell = (row, col)
-                visited = set()
-                queue = [start_cell]
-                while queue:
-                    current_cell = queue.pop(0)
-                    visited.add(current_cell)
-                    for dr, dc in directions:
-                        next_row, next_col = current_cell[0] + dr, current_cell[1] + dc
-                        next_cell = (next_row, next_col)
-                        if (0 <= next_row < self.height and 0 <= next_col < self.width
-                            and next_cell not in visited
-                            and self.is_same_region(current_cell, next_cell)
-                            and self.is_connected(current_cell, next_cell)):
-                            queue.append(next_cell)
-                isolated_cells = []
-                for r in range(self.height):
-                    for c in range(self.width):
-                        cell = (r, c)
-                        if self.is_same_region(cell, start_cell) and cell not in visited:
-                            isolated_cells.append(cell)
-                for cell in isolated_cells:
-                    for dr, dc in directions:
-                        next_row, next_col = cell[0] + dr, cell[1] + dc
-                        next_cell = (next_row, next_col)
-                        if (0 <= next_row < self.height and 0 <= next_col < self.width
-                            and self.is_same_region(cell, next_cell)
-                            and next_cell in visited):
-                            self.connect_cells(cell, next_cell)
-                            break
-
-map_obj = Map()
-map_obj.generate_voronoi_grid()
-map_obj.make_uneven_edges()
-map_obj.fit_rooms()
-map_obj.mark_unique_edge_rooms()
-map_obj.make_connections()
-map_obj.print_map()
-map_obj.visualize_map()
 
