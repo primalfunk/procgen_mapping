@@ -23,6 +23,7 @@ class Grid:
         self.fit_rooms()
         self.mark_unique_edge_rooms()
         self.make_connections()
+        self.current_cell = None
 
     def make_uneven_edges(self):
         for row in range(len(self.grid)):
@@ -315,46 +316,4 @@ class Grid:
                             self.connect_cells(cell, next_cell)
                             break
 
-    def visualize_map(self):
-        base_colors = [(255, 255, 255), (0, 0, 255), (0, 255, 0), (255, 255, 0), (0, 255, 255), (255, 0, 255)]
-        cell_size = 25
-        pygame.init()
-        pygame.font.init()
-        font_size = 14
-        font = pygame.font.SysFont("Helvetica", font_size)
-        screen = pygame.display.set_mode((self.width * 2 * cell_size - cell_size, self.height * 2 * cell_size - cell_size))
-        for row in range(self.height * 2 - 1): # Draw the grid
-            for col in range(self.width * 2 - 1):
-                original_row = row // 2
-                original_col = col // 2
-                base_color = base_colors[self.grid[original_row][original_col] + 1]
-                color = base_color  # Default color
-                if row % 2 == 0 and col % 2 == 0: # Modify color based on room type
-                    room_type = self.room_grid[original_row][original_col]
-                    if room_type in 'SDMQE':
-                        color = base_color
-                    pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
-                    pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
-                    if room_type != ' ': # Draw room label
-                        font_size = 30  # Increase font size for debugging
-                        text_color = (0, 0, 0) # should be black
-                        font = pygame.font.Font(None, font_size) # Update font size
-                        text_surface = font.render(room_type, True, text_color)
-                        text_x = col * cell_size + 5  # Fixed position within cell for debugging
-                        text_y = row * cell_size + 5
-                        screen.blit(text_surface, (text_x, text_y))
-                elif row % 2 == 0 and col % 2 == 1 and self.is_connected((original_row, original_col), (original_row, original_col + 1)):
-                    color = tuple(min(c + 50, 255) for c in base_color)
-                    pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
-                    pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
-                elif row % 2 == 1 and col % 2 == 0 and self.is_connected((original_row, original_col), (original_row + 1, original_col)):
-                    color = tuple(min(c + 50, 255) for c in base_color)
-                    pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
-                    pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
-        pygame.display.flip()
-        running = True  # Keep the window open until it's manually closed
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-        pygame.quit()
+

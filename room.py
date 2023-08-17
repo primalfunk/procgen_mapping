@@ -3,7 +3,7 @@ class Room:
         self.x = x
         self.y = y
         self.region = region
-        self.room_type = room_type  # S, D, M, Q, or E
+        self.room_type = room_type  # S, D, M, Q, E, or blank
         self.connections = set()
         self.name = ""
         self.desc = ""
@@ -15,5 +15,5 @@ class Room:
         return [(conn.x, conn.y) for conn in self.connections]
     
     def set_name_and_description(self, name, description):
-        self.name = name
+        self.name = name.title()
         self.desc = description

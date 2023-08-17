@@ -1,9 +1,12 @@
 import json
+import pygame
 import random
 from room import Room
 
 class Map:
     def __init__(self, grid):
+        self.height = grid.height
+        self.width = grid.width
         self.room_type_mapping = {
             'E': 'entry',
             'S': 'single',
@@ -35,7 +38,8 @@ class Map:
                 self.major_types_mapping[region][room_type] = list(self.data['genres']["fantasy"]['regions'][region][room_type].keys())
                 random.shuffle(self.major_types_mapping[region][room_type])
         self.set_room_descriptions()
-        self.print_map_info()
+        self.choose_player_start()
+        self.generated_colors = self.generate_colors(5)
         
     def print_map_info(self):
         for row in self.rooms:
@@ -93,3 +97,90 @@ class Map:
                     continue
                 name, desc = self.generate_room_name_and_description(room.region, room.room_type)
                 room.set_name_and_description(name, desc)
+
+    def choose_player_start(self):
+        valid_rooms = [(y, x) for y in range(self.height) for x in range(self.width) if self.rooms[y][x].room_type != ' ']
+        if valid_rooms:
+            current_y, current_x = random.choice(valid_rooms)
+            self.player_location = self.rooms[current_y][current_x]
+            print(f"Player starting room randomly selected at ({self.player_location.x}, {self.player_location.y})")
+            return True
+        else:
+            print("No valid rooms found!")
+            return False
+    
+    def get_player_location(self):
+        return self.player_location
+    
+    def generate_colors(self, number_of_colors):
+        colors = []
+        min_distance = 100
+        for _ in range(number_of_colors):
+            max_attempts = 100
+            attempts = 0
+            while attempts < max_attempts:
+                color = (random.randint(100,255), random.randint(100,255), random.randint(100,255))
+                if all(sum(abs(c1 - c2) for c1, c2 in zip(color, existing_color)) > min_distance for existing_color in colors):
+                    break
+                attempts += 1
+            colors.append(color)
+        return colors
+    
+    def visualize_map(self, screen):
+        player_location = self.get_player_location()
+        player_color = (255, 0, 0)
+        player_border_color = (255, 255, 255)
+        player_border_thickness = 3
+        base_colors = [(255, 255, 255)] + self.generated_colors
+        cell_size = 25
+        font_size = 14
+        font = pygame.font.SysFont("Helvetica", font_size)
+        for row in range(len(self.rooms) * 2 - 1): # Draw the grid
+            for col in range(len(self.rooms[0]) * 2 - 1):
+                original_row = row // 2
+                original_col = col // 2
+                room = self.rooms[original_row][original_col]
+                # If this is a non-room cell, fill it with black
+                if (row % 2 == 0 and col % 2 == 0) and (room.region == -1 or room.room_type == ""):
+                    pygame.draw.rect(screen, (0, 0, 0), (col * cell_size, row * cell_size, cell_size, cell_size))
+                    continue
+                if room is None:
+                    continue
+                base_color = base_colors[room.region + 1]
+                color = base_color
+                # draw cells (actual rooms)
+                if row % 2 == 0 and col % 2 == 0:
+                    if room.room_type in 'SDMQE':
+                        color = base_color
+                    pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
+                    pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
+                    if room == player_location:
+                        pygame.draw.rect(screen, player_color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw player's cell
+                        pygame.draw.rect(screen, player_border_color, (col * cell_size, row * cell_size, cell_size, cell_size), player_border_thickness) # Draw unique border for player's cell
+                # draw connections, horizontal and vertical
+                elif row % 2 == 0 and col % 2 == 1:
+                    next_room = self.rooms[original_row][original_col + 1] if original_col + 1 < len(self.rooms[0]) else None
+                    if next_room and next_room in room.connections:
+                        color = tuple(min(c + 50, 255) for c in base_color)
+                        pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
+                        pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
+                elif row % 2 == 1 and col % 2 == 0:
+                    next_room = self.rooms[original_row + 1][original_col] if original_row + 1 < len(self.rooms) else None
+                    if next_room and next_room in room.connections:
+                        color = tuple(min(c + 50, 255) for c in base_color)
+                        pygame.draw.rect(screen, color, (col * cell_size, row * cell_size, cell_size, cell_size)) # Draw cells
+                        pygame.draw.rect(screen, (192, 192, 192), (col * cell_size, row * cell_size, cell_size, cell_size), 1) # Draw borders
+                # draw room labels
+                if row % 2 == 0 and col % 2 == 0:
+                    if room == player_location:
+                        room_label = "P"
+                    else:
+                        room_label = room.room_type
+                    text_surface = font.render(room_label, True, (0, 0, 0))
+                    # Get the size of the text surface
+                    text_width, text_height = text_surface.get_size()
+                    # Calculate the centered position for the text
+                    text_x = col * cell_size + (cell_size - text_width) // 2
+                    text_y = row * cell_size + (cell_size - text_height) // 2
+                    screen.blit(text_surface, (text_x, text_y))
+        pygame.display.flip()
