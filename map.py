@@ -1,10 +1,13 @@
 import json
+from player import Player
 import pygame
 import random
 from room import Room
 
 class Map:
     def __init__(self, grid):
+        self.player = None
+        self.player_location = None
         self.height = grid.height
         self.width = grid.width
         self.room_type_mapping = {
@@ -13,6 +16,12 @@ class Map:
             'D': 'double',
             'Q': 'quad',
             'M': 'multi',
+        }
+        self.direction_mapping = {
+        "N": (0, -1),
+        "S": (0, 1),
+        "E": (1, 0),
+        "W": (-1, 0)
         }
         self.rooms = [[None for _ in range(grid.width)] for _ in range(grid.height)]
         for y in range(grid.height):
@@ -55,7 +64,6 @@ class Map:
         regions_data = list(self.data['genres']["fantasy"]['regions'].keys())
         random.shuffle(regions_data)
         self.regions_mapping = {idx: region for idx, region in enumerate(regions_data)}
-        print(self.regions_mapping)
 
     def generate_room_name_and_description(self, region_index, room_type):
         region_name = self.regions_mapping[region_index]
@@ -103,6 +111,7 @@ class Map:
         if valid_rooms:
             current_y, current_x = random.choice(valid_rooms)
             self.player_location = self.rooms[current_y][current_x]
+            self.player = Player(self.player_location) # ***** create the Player at this point *****
             print(f"Player starting room randomly selected at ({self.player_location.x}, {self.player_location.y})")
             return True
         else:
@@ -184,3 +193,31 @@ class Map:
                     text_y = row * cell_size + (cell_size - text_height) // 2
                     screen.blit(text_surface, (text_x, text_y))
         pygame.display.flip()
+
+    def move_player(self, direction):
+        # Get the current coordinates of the player
+        current_x, current_y = self.player_location.x, self.player_location.y
+        # Define the changes in coordinates for each direction
+        direction_mapping = {
+            "N": (0, -1),
+            "S": (0, 1),
+            "E": (1, 0),
+            "W": (-1, 0)
+        }
+        # Get the change in coordinates for the specified direction
+        dx, dy = direction_mapping[direction]
+        # Compute the new coordinates
+        new_x, new_y = current_x + dx, current_y + dy
+        # Check if the new coordinates are within the bounds of the map
+        if 0 <= new_x < self.width and 0 <= new_y < self.height:
+            # Get the room object at the new coordinates
+            new_room = self.rooms[new_y][new_x]
+            # Check if there is a connection to the new room
+            if new_room in self.player_location.connections:
+                # Update the player's location
+                self.player_location = new_room
+                return f"You have moved {direction}."
+            else:
+                return "You can't go that way."
+        else:
+            return "You can't go that way."

@@ -64,9 +64,9 @@
                 "The barbican's stone walls are reinforced with wooden beams, giving it a sturdy and imposing appearance.",
                 "The interior of the barbican is surprisingly spacious, housing guards' quarters and storage rooms.",
                 "Crenellations along the barbican's walls offer protection for archers while allowing them to return fire.",
-                "You notice discarded arrows and bolts littering the ground, evidence of recent drills and exercises.",
+                "You notice old, discarded arrows and bolts littering the ground, evidence of long-ago drills and exercises.",
                 "A thick portcullis guards the entrance to the barbican, ready to be lowered in times of danger.",
-                "The sound of training weapons striking wooden dummies echoes from the barbican's training yard.",
+                "The sound of training weapons striking wooden dummies must have once echoed from the barbican's training yard.",
                 "An old, weathered plaque on the barbican wall bears the insignia of a knightly order long gone."
               ]
             },
@@ -121,16 +121,16 @@
                 "eating chamber"
               ],
               "desc": [
-                "The abandoned feasting hall is a grand but desolate space, its tables and chairs untouched by revelers.",
+                "The abandoned feasting hall is a grand but desolate space, its tables and chairs dust-covered, long untouched by revelers.",
                 "Faded tapestries on the walls depict scenes of lavish banquets, a stark contrast to the room's current state.",
-                "Chandeliers that once illuminated joyous gatherings now hang motionless, their candles long extinguished.",
-                "The air in the banquet room is heavy with the residue of laughter and clinking goblets, a distant memory.",
-                "Chairs stand pushed back from the table, as if the guests suddenly vanished in the midst of their meal.",
-                "A lone goblet lies on the floor, its contents evaporated and its owner nowhere to be found.",
+                "Chandeliers that once illuminated joyous gatherings now hang motionless, their extinguished candles lifeless and lightless.",
+                "The air in the banquet room is heavy with the residue of laughter and clinking goblets like a distant memory, utensils now dust-covered and strewn everywhere.",
+                "Rich mahogany chairs stand pushed back from the table, as if the guests had vanished in the midst of their meal.",
+                "A lone goblet lies on the floor, its contents evaporated, and its owner nowhere to be found. Who will drink you, little cup?",
                 "You can almost hear the echoes of lively conversations and the strains of music that once filled this dining hall.",
-                "The dining room's opulent decor now seems out of place against the backdrop of abandonment.",
-                "Empty platters and serving dishes line the table, remnants of a feast that was never cleared away.",
-                "The dining hall's grandeur stands as a testament to a time when this chamber was alive with celebration."
+                "The dining room's opulent decor now seems out of place against the backdrop of abandonment. There's a sigh in the wind of forgetfulness.",
+                "Empty platters and serving dishes line the table, remnants of a feast that was never cleared away. Not enough remains even to tempt the rats.",
+                "The dining hall's grandeur stands as a testament to a time when this chamber was alive with celebration, though the gilded furniture is now dull with neglect."
               ]
             },
             "closet": {
@@ -142,15 +142,15 @@
               ],
               "desc": [
                 "The abandoned wardrobe is a cavern of forgotten garments, its shelves and hooks bare of clothing.",
-                "Dust motes dance in the air as you open the closet door, revealing empty hangers and abandoned shoes.",
-                "A moth-eaten dress and a pair of frayed gloves remain as remnants of the closet's former contents.",
-                "The scent of musty fabric and cedar wood fills the air, carrying the memory of past wardrobes.",
+                "Dust motes dance in the air as you peer through the closet door, revealing empty hangers and abandoned shoes.",
+                "Shreds of a moth-eaten dress and a single frayed glove remain as remnants of the closet's former contents, who must have been wealthy.",
+                "The scent of musty fabric and cedar wood fills the air, and beneath are mouldy piles of forgotten cloth here and there.",
                 "Shoes and boots stand forgotten in a corner, their owners long departed and their purpose now lost.",
-                "You can almost hear the faint rustling of garments and the echoes of laughter as people dressed for the day.",
+                "You can imagine the faint rustling of garments and the echoes of laughter as people dressed for the day in this enormous area, though they are all gone now.",
                 "The closet's shelves sag under the weight of disarrayed linens and garments, a chaotic tableau of neglect.",
                 "An old vanity mirror reflects the emptiness of the closet, a silent witness to countless wardrobe changes.",
-                "Cobwebs drape across the closet's corners, weaving a delicate tapestry that echoes the passage of time.",
-                "The closet's closed doors hold secrets that only the forgotten clothes and belongings can still remember."
+                "Cobwebs drape across the closet's corners, but their little industrious makers are nowhere to be seen.",
+                "The closet's broken doors hang limply aside. Within, there are a few piles of indescribable rubbish."
               ]
             },
             "bedroom": {
@@ -161,16 +161,16 @@
                 "resting room"
               ],
               "desc": [
-                "The abandoned chamber is a silent sanctuary, its bed and furniture untouched by slumbering guests.",
-                "Curtains hang limply from the canopy bed, evoking memories of nights that once held dreams.",
-                "An old journal lies on the nightstand, its pages filled with stories that were never concluded.",
-                "The air in the bedroom is heavy with a sense of quiet solitude, as if the room holds its breath in waiting.",
-                "Pillows and blankets lie neatly arranged, as though their owners departed with care and intention.",
-                "You can almost hear the echoes of whispered secrets and the soft rustling of sheets, a distant lullaby.",
-                "The bedroom's ornate mirror reflects emptiness and the shadows of memories that have long since faded.",
-                "Cobwebs cling to the corners, framing the room's stillness with delicate threads of neglect.",
-                "A faint scent of lavender lingers in the air, a trace of perfume that has endured the passage of time.",
-                "The bedroom's silence is a stark contrast to the laughter and warmth that once filled its walls."
+                "The abandoned chamber is a silent sanctuary, its bed and furniture long untouched by slumbering guests.",
+                "Curtains hang limply from the canopy bed, ownerless and partially covered in moss. This was once a place of great dreams.",
+                "The shred of a burnt-up journal lies on the nightstand, its charred pages suggesting some dramatic moment occured here long ago. You can only guess.",
+                "The air in the bedroom is heavy with a sense of quiet solitude, as if the room holds its breath in waiting. Even in its fallen state, you still feel strangely comfortable.",
+                "Pillows and blankets lie neatly arranged, as though their owners departed with care and intention. The scene is spoiled by a shattered glass window, angry teeth glaring.",
+                "A massive four-post bed dominates the room. You can almost hear the echoes of whispered secrets and the soft rustling of sheets, a distant lullaby.",
+                "The bedroom's ornate mirror reflects emptiness and the shadows of memories that have long since faded. A room without a resident is a ghost.",
+                "Cobwebs cling to the corners, framing the room's stillness with delicate threads of neglect. Tiny dark spiders dart in and out of the shadows.",
+                "A faint scent of lavender lingers in the air, a trace of perfume that has endured the passage of time. A few bundles of it lay scattered on the disarrayed room.",
+                "The bedroom's silence is a stark contrast to the laughter and warmth that must have once filled its walls; its gloom now fills the same space."
               ]
             },
             "study": {
@@ -181,16 +181,16 @@
                 "writing room"
               ],
               "desc": [
-                "The abandoned scholar's chamber is a realm of forgotten knowledge, its shelves once brimming with books.",
-                "Dust motes dance in the light that filters through the window, casting shadows on the neglected tomes.",
+                "The abandoned scholar's chamber is no more than a hoarding of forgotten knowledge, its shelves brimming with books, all utterly unreadable.",
+                "Dust motes dance in the light that filters through the window, casting shadows on the neglected tomes. They are in languages you don't understand.",
                 "Papers and quills lie scattered across the desk, a frozen tableau of scholarly pursuits left unfinished.",
                 "The scent of old parchment and ink lingers in the air, carrying the memory of countless hours spent reading and writing.",
-                "Faded ink blots and worn quills testify to the past presence of dedicated scholars and thinkers.",
-                "You can almost hear the echoes of lively debates and the scratch of quills against paper, a ghostly symphony of intellect.",
-                "The study's once-inspiring atmosphere is now one of quiet abandonment, its purpose forgotten.",
-                "An overturned inkwell has left its mark on the desk, a reminder of the abrupt departure of its user.",
-                "The study's windows overlook an overgrown garden, nature's intrusion into the realm of forgotten wisdom.",
-                "The study's shelves are lined with volumes that hold secrets and knowledge now obscured by layers of dust."
+                "Faded ink blots and worn quills testify to the past presence of dedicated scholars, though the black stains are probably centuries dry.",
+                "A smashed desk sits in the center of this space, surface gouged and scored by the claws of some wild animal. Neither desk sitter nor scratcher are anywhere to be seen.",
+                "The study's once-inspiring atmosphere is now one of quiet abandonment, its purpose forgotten. An inkpot lays carelessly prone in a corner with a long, round shadow at its mouth.",
+                "An overturned inkwell has left its mark on the desk, a suggestion of an abrupt departure by its user. Bits of paper with faded ink stains still lie here and there in the quiet corners.",
+                "This room features a very lifelike painting of a window which looks out into a lush, verdant garden. The floor bears no footprints in the dust but your own.",
+                "The study's shelves are lined with volumes that hold secrets and knowledge now obscured by layers of dust, in languages none living still speak."
               ]
             },
             "armory": {
@@ -201,16 +201,16 @@
                 "weaponry room"
               ],
               "desc": [
-                "The abandoned weapons chamber is a silent armory, its racks and stands devoid of weapons and armor.",
-                "Dust motes drift through the air as you enter, casting faint beams of light on the vacant weapon displays.",
-                "Cobwebs hang in delicate veils over the empty racks, nature's tapestries merging with human abandonment.",
-                "The scent of rust and oil lingers, a testament to the armory's past of maintaining the castle's defenses.",
-                "Training dummies stand untouched, their wooden forms a silent reminder of past drills and preparations.",
-                "You can almost hear the echoes of clashing blades and the shouts of soldiers, a fading memory of readiness for battle.",
-                "The armory's torch sconces stand empty, their flames extinguished and their light now only a memory.",
-                "Empty weapon racks and armor stands line the walls, shadows of a time when this room was alive with preparation.",
-                "A discarded shield lies forgotten on the floor, its emblem worn and faded by years of disuse.",
-                "The armory's silence stands in stark contrast to the clangor and camaraderie that once filled its walls."
+                "The abandoned weapons chamber is a silent armory, its racks and stands devoid of weapons and armor. They must have been looted.",
+                "Dust motes drift through the air as you enter, casting faint beams of light on the vacant weapon displays. There are no footprints but your own in the layer of dust on the floor.",
+                "Cobwebs hang in delicate veils over the empty racks, nature's tapestries merging with human abandonment. Small webspinners with golden eyes peer from craigs in the brick but do not venture out.",
+                "The scent of rust and oil lingers, a testament to the armory's past of maintaining the castle's defenses. There are large, dark patches where it must have been allowed to once pool on tables and the stone floor.",
+                "Training dummies stand untouched, their wooden forms a silent reminder of past drills and preparations. None of them look very tough to you.",
+                "You can almost hear the echoes of clashing blades and the shouts of soldiers, a fading memory of readiness for battle. Now even the air doesn't want to move in this room.",
+                "The armory's torch sconces stand empty, their flames extinguished and their light now only a memory. Without people to war with, the purpose of this room is long gone.",
+                "Empty weapon racks and armor stands line the walls, shadows of a time when this room was alive with preparation. The sound of a waterbird, mournful and low, lingers and fills the space.",
+                "A discarded shield lies forgotten on the floor, its emblem worn and faded by years of disuse. The leather strap from its back is half eaten, apparently by rats.",
+                "The armory's silence stands in stark contrast to the clangor and camaraderie that once filled its walls. The cold stone walls seem to loath any sound."
               ]
             },
             "waiting room": {
@@ -243,7 +243,7 @@
                 "assembly hall"
               ],
               "desc": [
-                "The abandoned great hall is a cavernous expanse, its majestic tapestries and banners now faded and tattered.",
+                "The abandoned great hall is a cavernous expanse, hung all around with faded tapestries and banners.",
                 "Rows of empty benches and long tables stretch across the hall, a silent echo of past gatherings.",
                 "Faded frescoes on the walls tell tales of heroism and valor, their colors muted by the passage of time.",
                 "The air in the grand hall is thick with the memory of feasts and celebrations, now replaced by silence.",
@@ -283,16 +283,16 @@
                 "holy hall"
               ],
               "desc": [
-                "The abandoned chapel exudes an air of solemnity, its pews and altar untouched by the faithful.",
-                "Faded stained glass windows depict scenes of devotion, the vibrant colors now dimmed by the passage of time.",
-                "The air in the sanctuary carries the faint echoes of hymns and prayers, now replaced by a profound stillness.",
-                "Rows of empty pews stand in silent reverence, a testament to the worshippers who once filled this holy hall.",
-                "You can almost hear the faint rustling of prayer books and the murmur of congregants, a distant chorus of devotion.",
-                "The chapel's once-illuminated candelabras and flickering candles have surrendered to darkness and neglect.",
-                "The chapel's architecture speaks of reverence and devotion, a sacred space even in its state of abandonment.",
-                "Cobwebs drape across the altar and pews, nature's delicate tapestries blending with human abandonment.",
-                "A sense of spiritual history lingers in the chapel, even as the rituals and prayers have ceased to resound.",
-                "The chapel's silence stands in stark contrast to the heartfelt worship and unity that once filled its walls."
+                "The abandoned chapel exudes an air of solemnity, although there are nowhere to be found any more of the faithful.",
+                "Faded stained glass windows depict scenes of devotion, the vibrant colors now dimmed by the passage of time. Several are completely smashed and look crookedly out to the yards.",
+                "Though the air in the sanctuary is a bit stale and dust-filled, you can still smell the old varnish on the dark, rich wooden columns here.",
+                "Rows of empty pews stand in silent reverence. The tendrils of some sort of thorny vine have nearly taken over the altar at the front.",
+                "You can almost hear the faint rustling of prayer books and the murmur of congregants, a distant chorus of devotion. But a thick layer of dust lays over the bookstands, and moss grows on the altar.",
+                "The chapel's once-illuminated candelabras and flickering candles have surrendered to darkness and neglect. Standing here now, you feel only a faint darkness of the soul where the faithful must have once come for light.",
+                "The old chapel is still a sacred space, even in its state of abandonment. The dusty edifices of a large altar at the front are a rich, dark wood.",
+                "Cobwebs drape across the altar and pews in a faintly sad imitation of what worshippers used to congregate here.",
+                "This room was a place of reflection and worship. An ornate fountain stands by the door, but no water comes from its gut anymore.",
+                "The chapel stands silent, as if in a cautious hush. A rich red carpet once led through its heart, now muddied and worn to black baldness."
               ]
             },
             "library": {
@@ -303,16 +303,16 @@
                 "scholarly chamber"
               ],
               "desc": [
-                "The abandoned library is a treasure trove of forgotten wisdom, its shelves once brimming with volumes.",
-                "Dust motes swirl in the light that filters through the tall windows, casting a hushed ambiance.",
-                "Papers and quills lie strewn across tables and reading desks, their ink faded and their authors departed.",
-                "The scent of old parchment and ink lingers in the air, a reminder of the countless hours spent in study and contemplation.",
-                "Faded ink blots and worn quills hint at the past presence of dedicated scholars and curious minds.",
-                "You can almost hear the echoes of fervent debates and the soft rustling of pages, a ghostly symphony of intellect.",
-                "The library's atmosphere still exudes an aura of learning and discovery, even in its state of abandonment.",
-                "An overturned inkwell leaves its mark on a desk, a testament to the swift departure of its user.",
-                "Cobwebs drape across bookshelves, blending nature's tapestries with the legacy of human inquiry.",
-                "The library's silence stands in stark contrast to the animated discussions and quiet musings that once filled its halls."
+                "The shelves of this space are still full of books, but the mice have made a citadel of their now wordless husks.",
+                "Dust motes swirl in the light that filters through the tall windows, casting a hushed ambiance. Books in every language lay scattered all around, pages gathering mold and rot.",
+                "Papers and quills lie strewn across tables and reading desks, their ink faded and their authors departed. The floor is thick with dust.",
+                "The scent of old parchment and ink lingers in the air, a reminder of the countless hours spent in study and contemplation. Beneath the forgotten books are wooden shelves of a light color.",
+                "Faded ink blots and worn quills dot the curves and edges of an elaborate writing desk in the center of this hall.",
+                "The shelves that were once browsed freely by the people are now bogged together with piles of their old occupants, making hills and mountains of wasted books.",
+                "The library's atmosphere still seems studious and peaceful, even in its state of abandonment. A long reading table nearby bears a thick layer of dust with the tiny tracks of mice.",
+                "An overturned inkwell leaves its mark on a desk, a testament to the swift departure of its user. Several of the shelves lay on their sides or shattered.",
+                "Cobwebs drape across bookshelves here and there, and there are here and there the husks of their old makers, themselves now dried and trapped.",
+                "The library's silence stands in stark contrast to the discussions and quiet musings that once filled its halls. No books remain which are not damaged by pests or vandals."
               ]
             }
           },
@@ -325,16 +325,16 @@
                 "quadrangle"
               ],
               "desc": [
-                "The abandoned courtyard is a vast expanse, its cobbled paths and stone walls now overgrown with weeds and vines.",
-                "Statues and fountains stand as weathered sentinels, remnants of the grandeur that once filled this open square.",
-                "The air in the inner yard is heavy with the memory of bustling activity, the echoes of gatherings and events long gone.",
-                "Empty benches and forgotten garden beds hint at moments of reprieve and contemplation amidst the castle's walls.",
-                "A sense of history and legacy hangs in the courtyard, a space that once bore witness to countless celebrations.",
-                "You can almost hear the faint laughter of courtiers and the soft rustling of gowns, a distant echo of elegance.",
-                "The courtyard's architecture stands in stark contrast to the wilderness that now asserts its dominance within.",
-                "Cobwebs drape over the crumbling corners of statues and the fragments of fountains, nature's embrace of human artistry.",
-                "A sense of open space and possibility lingers in the courtyard, even as the footsteps that once graced it have ceased.",
-                "The courtyard's silence stands in contrast to the bustling life and interactions that once animated its heart."
+                "The abandoned courtyard is a vast expanse, its cobbled paths and stone walls now overgrown with spiny weeds and vines.",
+                "Statues and fountains stand as weathered sentinels, remnants of the grandeur that once filled this open square. One wears a moss over its face like a living eyepatch.",
+                "The air in the inner yard is heavy with the memory of bustling activity, the echoes of gatherings and events long gone. Posts stand here or there with rope leads to mounts which are now centuries dead.",
+                "Empty benches and forgotten garden beds hint at moments of reprieve and contemplation amidst the castle's walls, although the gardens are now overtaken with an unpleasant spiny vine that seems to be everywhere.",
+                "A sense of history and legacy hangs in the courtyard, a space that once bore witness to countless celebrations. There is a feeling of that loss, a desolate feeling.",
+                "You can almost imagine the faint laughter of courtiers and the soft rustling of gowns, a distant echo of elegance. Now no one laughs in the breezes here as they pass through moss-claimed arches and crumbling columns.",
+                "The courtyard's architecture stands in stark contrast to the wilderness that now asserts its dominance within. A large, dark tree with a furrowed bark has smashed aside both floor and ceiling to stretch to its living size.",
+                "Cobwebs drape over the crumbling corners of statues and the fragments of fountains. One statue's misplaced head lays still as a boulder in a garden bed.",
+                "The courtyard is grim and silent except for your own noise.",
+                "The courtyard has given way to nature and now nearly resembles a woodland as beeches and oaks both have flourished around the statues."
               ]
             },
             "tower": {
